@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\begin{document}
+
+%========================
+% COVER PAGE
+%========================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE \textbf{Software Requirements Specification (SRS)}\par}
+    \vspace{1.5cm}
+    {\large Project: \textbf{Lab Activity 14}\par}
+    \vspace{0.5cm}
+    {\large Team Name: \textbf{Tommy W., Nadia H., Damarion M.P, Samantha V.M, Stephany C.P}\par}
+    \vspace{0.5cm}
+    {\large Group Number: \textbf{4}\par}
+    \vspace{0.5cm}
+    {\large Version: \textbf{1.0}\par}
+    \vfill
+    {\large Date: \textbf{December 5, 2025}\par}
+    \vspace{2cm}
+\end{titlepage}
+
+%========================
+% TABLE OF CONTENTS
+%========================
+\tableofcontents
+\newpage
+
+%========================
+% VERSION DESCRIPTION
+%========================
+\section*{Version Description}
+\addcontentsline{toc}{section}{Version Description}
+
+\begin{longtable}{|>{\centering\arraybackslash}m{3cm}|
+                      >{\arraybackslash}m{7cm}|
+                      >{\centering\arraybackslash}m{3cm}|}
+    \hline
+    \textbf{Version} & \textbf{Description} & \textbf{Date} \\
+    \hline
+    1.0 & Initial SRS for Snapshot 1. Includes introduction, external interface requirements, legal and ethical considerations, and glossary. & December 5, 2025 \\
+    \hline
+\end{longtable}
+
+\newpage
+
+%========================
+% 1. INTRODUCTION
+%========================
+\section{Introduction}
+
+\subsection{Purpose of the Document}
+The purpose of this Software Requirements Specification (SRS) is to describe all functional and non-functional requirements for the \textit{Lab Activity 14} system. It establishes what the software will do, how users will interact with it, and the constraints it must follow.
+
+\bigskip
+
+\noindent\textbf{Added Note from Group:}  
+“Can you do step 5 for me. So project name would be Lab Activity 14. Team name here would be be Tommy W., Nadia H. Damarion M.P, Samantha V.M, Stephany C.P. Group number is 4 and the date is December 5 2025.”
+
+\subsection{Intended Audience}
+This document is intended for:
+\begin{itemize}
+    \item Stakeholders and students reviewing system expectations.
+    \item Developers implementing system features.
+    \item Instructors evaluating project completeness.
+\end{itemize}
+
+\subsection{Overview of the Software}
+The \textbf{Lab Activity 14} software represents an academic exercise focused on generating professional documentation using LaTeX. It outlines requirements and design elements of a simple structured system used in software engineering courses.
+
+\newpage
+
+%========================
+% 2. EXTERNAL INTERFACE REQUIREMENTS
+%========================
+\section{External Interface Requirements}
+
+\subsection{User Interface}
+\begin{itemize}
+    \item The system provides a simple, easy-to-navigate interface.
+    \item Users can select actions and navigate through menus.
+    \item Clear prompts and forms enable user input.
+\end{itemize}
+
+\subsection{Software Interfaces}
+\begin{itemize}
+    \item The system may connect to a database for storing data.
+    \item APIs can be used for authentication or external services.
+    \item Data is exchanged in common formats such as JSON or form data.
+\end{itemize}
+
+\newpage
+
+%========================
+% 3. LEGAL AND ETHICAL CONSIDERATIONS
+%========================
+\section{Legal and Ethical Considerations}
+
+\subsection{Data Storage and Privacy}
+\begin{itemize}
+    \item Minimal user data is collected.
+    \item Sensitive information is protected using standard security practices.
+    \item User access is restricted where necessary.
+\end{itemize}
+
+\subsection{Legal and Ethical Issues}
+\begin{itemize}
+    \item Users must be informed about what information is used or stored.
+    \item Systems must comply with general data ethics and privacy expectations.
+    \item Unauthorized data use or sharing is prohibited.
+\end{itemize}
+
+\newpage
+
+%========================
+% 4. GLOSSARY
+%========================
+\section{Glossary}
+
+\begin{longtable}{|>{\centering\arraybackslash}m{3cm}|
+                      >{\arraybackslash}m{9cm}|}
+    \hline
+    \textbf{Acronym} & \textbf{Definition} \\
+    \hline
+    UI & User Interface \\
+    \hline
+    API & Application Programming Interface \\
+    \hline
+    DB & Database \\
+    \hline
+    SRS & Software Requirements Specification \\
+    \hline
+    SDD & Software Design Document \\
+    \hline
+\end{longtable}
+
+\end{document}

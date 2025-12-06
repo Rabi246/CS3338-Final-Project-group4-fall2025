@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+
+% Packages
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\begin{document}
+
+%========================
+% COVER PAGE
+%========================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE \textbf{Software Design Document (SDD)}\par}
+    \vspace{1.5cm}
+    {\large Project: \textbf{Lab Activity 14}\par}
+    \vspace{0.5cm}
+    {\large Team Name: \textbf{Tommy W., Nadia H., Damarion M.P, Samantha V.M, Stephany C.P}\par}
+    \vspace{0.5cm}
+    {\large Group Number: \textbf{4}\par}
+    \vspace{0.5cm}
+    {\large Version: \textbf{1.0}\par}
+    \vfill
+    {\large Date: \textbf{December 5, 2025}\par}
+    \vspace{2cm}
+\end{titlepage}
+
+%========================
+% TABLE OF CONTENTS
+%========================
+\tableofcontents
+\newpage
+
+%========================
+% VERSION DESCRIPTION
+%========================
+\section*{Version Description}
+\addcontentsline{toc}{section}{Version Description}
+
+\begin{longtable}{|>{\centering\arraybackslash}m{3cm}|
+                      >{\arraybackslash}m{7cm}|
+                      >{\centering\arraybackslash}m{3cm}|}
+    \hline
+    \textbf{Version} & \textbf{Description} & \textbf{Date} \\
+    \hline
+    1.0 & Initial SDD for Snapshot 1. Includes system overview, architecture, basic UI description, and glossary. & December 5, 2025 \\
+    \hline
+\end{longtable}
+
+\newpage
+
+%========================
+% 1. INTRODUCTION
+%========================
+\section{Introduction}
+
+\subsection{Purpose of the Document}
+This Software Design Document (SDD) describes the overall design of the \textit{Lab Activity 14} system. It explains the system architecture, main components, data flow, and user interface design based on the requirements defined in the SRS.
+
+\subsection{Intended Audience}
+This document is intended for:
+\begin{itemize}
+    \item The development team implementing the system.
+    \item The course instructor and teaching assistants reviewing the design.
+    \item Future developers who may extend or maintain the system.
+\end{itemize}
+
+\subsection{Overview of the System}
+The \textbf{Lab Activity 14} system is a structured academic project demonstrating how software documentation is built using LaTeX. It includes a Software Requirements Specification (SRS) and a Software Design Document (SDD) that outline the system’s structure, workflow, interface, and key components.
+
+\newpage
+
+%========================
+% 2. SYSTEM ARCHITECTURE
+%========================
+\section{System Architecture}
+
+\subsection{Overall Workflow of the System}
+Example workflow:
+\begin{enumerate}
+    \item User accesses the application interface.
+    \item User submits or interacts with project data.
+    \item The back end processes the input and stores information in the database.
+    \item Results or responses are shown through the user interface.
+\end{enumerate}
+
+\subsection{System Components}
+\begin{itemize}
+    \item \textbf{Front End:} Provides the user interface using simple UI layouts for interaction.
+    \item \textbf{Back End:} Handles logic, data processing, and workflow control.
+    \item \textbf{Database:} Stores structured project or user data.
+    \item \textbf{External Systems (Optional):} Could include APIs (e.g., authentication or file services).
+\end{itemize}
+
+\newpage
+
+%========================
+% 3. USER INTERFACE
+%========================
+\section{User Interface}
+
+\subsection{How to Use the System}
+\begin{itemize}
+    \item Users access the system through a webpage or interface.
+    \item Navigation is provided to move between sections or features.
+    \item Forms allow user input such as uploading data or selecting features.
+\end{itemize}
+
+\subsection{Database Design and Explanation}
+The database consists of organized tables for storing structured information. Tables may include:
+\begin{itemize}
+    \item User accounts
+    \item Documents or records
+    \item Metadata related to project workflows
+\end{itemize}
+
+\subsection{Screenshots (Optional)}
+You may insert screenshots here by uploading files to Overleaf and including them using:
+\begin{verbatim}
+\includegraphics[width=0.8\textwidth]{filename.png}
+\end{verbatim}
+
+\newpage
+
+%========================
+% 4. GLOSSARY
+%========================
+\section{Glossary}
+
+\begin{longtable}{|>{\centering\arraybackslash}m{3cm}|
+                      >{\arraybackslash}m{9cm}|}
+    \hline
+    \textbf{Acronym} & \textbf{Definition} \\
+    \hline
+    UI & User Interface \\
+    \hline
+    API & Application Programming Interface \\
+    \hline
+    DB & Database \\
+    \hline
+    SRS & Software Requirements Specification \\
+    \hline
+    SDD & Software Design Document \\
+    \hline
+\end{longtable}
+
+\newpage
+
+%========================
+% 5. REFERENCES
+%========================
+\section{References}
+
+\begin{itemize}
+    \item Course materials and lecture notes.
+    \item Overleaf Documentation: \url{https://www.overleaf.com}
+\end{itemize}
+
+\end{document}
