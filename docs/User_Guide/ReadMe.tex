@@ -1,0 +1,98 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\geometry{a4paper, margin=1in}
+
+\title{User Manual}
+\author{
+    Damarrion Morgan-Harper\\
+    \and
+    Stephany Portillo\\
+    \and
+    Nadia Hernandez\\
+    \and
+    Samantha Moncada\\
+    \and
+    Tommy Works\\
+    }
+\date{December 2025}
+
+\setlength{\droptitle}{6cm}
+
+\pagestyle{fancy}
+\fancyhead[L]{User Manual}
+\fancyhead[R]{Page \thepage}
+\fancyfoot[C]{}
+
+\begin{document}
+
+\begin{titlepage}
+\maketitle
+\thispagestyle{empty}
+\end{titlepage}
+
+\section*{Jira Project Link}
+\noindent \textbf{Jira Project URL:} \href{https://[YOUR-JIRA-LINK].atlassian.net/}{https://[YOUR-JIRA-LINK].atlassian.net/}
+
+\section*{Project Overview}
+The \textbf{Box.com Discovery Bates Namer} is a cloud-native serverless application designed to automate the ingestion, parsing, and renaming of legal discovery files. By leveraging \textbf{AWS Lambda} and the \textbf{Box Skills Framework}, this tool replaces manual desktop processing with an automated workflow that scales to handle terabytes of data monthly.
+
+\section*{Features \& Capabilities}
+\begin{itemize}
+    \item \textbf{Automated Bates Extraction:} Scans uploaded PDFs to identify and extract sequential Bates stamp identifiers.
+    \item \textbf{Metadata Cascade:} automatically captures metadata (PD Case Number, Disc Number) from the parent folder structure and assigns it to the file.
+    \item \textbf{Intelligent Renaming:} Renames files according to the standardized convention: 
+    \begin{quote}
+    \texttt{\{BatesNumber\}\_Disc\{XX\}\_\{OriginalFileName\}.pdf}
+    \end{quote}
+    \item \textbf{Error Notifications:} Detects "soft" errors (e.g., inconsistent stamps) and "critical" errors (e.g., file size limit), notifying the user via email.
+\end{itemize}
+
+\newpage
+
+\section*{Usage Instructions}
+\subsection*{1. Folder Naming Convention (Critical)}
+For the automation to trigger correctly, you must upload files into a folder that strictly follows this naming convention:
+
+\begin{center}
+\textbf{\texttt{pd[CaseNumber]\_disc[Number]}}
+\end{center}
+
+\noindent \textbf{Examples:}
+\begin{itemize}
+    \item \texttt{pd12345\_02} (Correct)
+    \item \texttt{Case12345} (Incorrect - Automation will fail)
+\end{itemize}
+
+\subsection*{2. Uploading Files}
+\begin{enumerate}
+    \item Log in to \textbf{Box.com} and navigate to the designated "Skill Applied Folder".
+    \item Create a new folder using the naming convention above (e.g., \texttt{pd55921\_01}).
+    \item Drag and drop your PDF discovery files into this new folder.
+    \item \textbf{Wait:} The system will automatically detect the upload. Within seconds, the file will be renamed and moved to the target directory.
+\end{enumerate}
+
+\section*{Troubleshooting \& Error Messages}
+If a file fails to process, you will receive an automated email notification. Common errors include:
+
+\begin{itemize}
+    \item \textbf{"Invalid folder name format"}: You uploaded a file to a folder that does not look like \texttt{pdXXXXX\_XX}. The system may default the disc number to '00' or fail entirely.
+    \item \textbf{"File size exceeds limit"}: The uploaded PDF is larger than 64 MB. AWS Lambda cannot process this file in one pass. Please split the document.
+    \item \textbf{"No Bates stamps found"}: The system could not detect a valid stamp pattern on the first page. Ensure the scan quality is high.
+    \item \textbf{"Duplicate PD case folders"}: A destination folder with this name already exists. The system prevents overwriting data to ensure safety.
+\end{itemize}
+
+\section*{Technical Requirements}
+Users do not need to install local software. However, the system relies on the following constraints:
+\begin{itemize}
+    \item \textbf{File Type:} PDF Only (Text-readable preferred).
+    \item \textbf{Browser:} Google Chrome, Safari, or Microsoft Edge (Latest Versions).
+    \item \textbf{Internet:} Stable HTTPS connection required for Box API interactions.
+\end{itemize}
+
+\end{document}
