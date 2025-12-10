@@ -103,6 +103,32 @@ Example workflow:
     \item \textbf{External Systems (Optional):} Could include APIs (e.g., authentication or file services).
 \end{itemize}
 
+\subsection{Deployment and Container Architecture}
+
+This system is deployed using Docker and Docker Compose. Each main part of the application runs inside its own container so that the environment is consistent across different machines.
+
+\begin{itemize}
+    \item \textbf{Frontend Container} -- Runs the React-based user interface. This container serves the web pages that the user interacts with in the browser. It is exposed on port \texttt{3000}.
+    \item \textbf{Backend Container} -- Runs the Node.js/Express API that handles file uploads, basic or simulated metadata extraction, and communication with the database. It is exposed on port \texttt{5000}.
+    \item \textbf{Database Container} -- Runs PostgreSQL and stores the structured case metadata. This container is not accessed directly by the user; it is only used by the backend container.
+\end{itemize}
+
+All of these containers are defined in the \texttt{docker-compose.yml} file at the root of the repository. Docker Compose automatically creates a private network so that the containers can communicate with each other.
+
+The backend container connects to the database using the hostname \texttt{db} and port \texttt{5432}. Configuration values such as database host, port, user, and password are stored in the \texttt{backend/.env} file and loaded at runtime. This keeps configuration separate from the source code and makes the system easier to run in different environments.
+
+To start all containers together in a development environment, the following command is used from the project root:
+
+\begin{verbatim}
+docker-compose up --build
+\end{verbatim}
+
+To stop and remove the containers, the following command is used:
+
+\begin{verbatim}
+docker-compose down
+\end{verbatim}
+
 \newpage
 
 %========================
@@ -168,3 +194,4 @@ You may insert screenshots here by uploading files to Overleaf and including the
 \end{itemize}
 
 \end{document}
+
