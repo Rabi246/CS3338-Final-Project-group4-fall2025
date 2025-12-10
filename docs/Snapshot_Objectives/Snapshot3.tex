@@ -1,0 +1,72 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Snapshot 3 Objectives \\ Intelligent Document Processing \& Case File Search System}
+\author{Group 4: Tommy Works, Nadia Hernandez, Damarrion Morgan-Harper,\\
+Samantha Moncada, Stephany Portillo}
+\date{December 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+Snapshot 3 expands the core functionality implemented in Snapshot 2 by improving metadata extraction, introducing search capabilities, and refining system reliability. This phase focuses on enhancing the intelligence and usability of the system while ensuring all components (frontend, backend, database, Docker containers) continue to operate in a consistent and stable environment.
+
+\section*{Snapshot 3 Objectives}
+
+\begin{itemize}
+    \item Enhance and refine metadata extraction logic for uploaded PDF case files.
+    \begin{itemize}
+        \item Improve parsing or simulated extraction of fields such as case number, page count, categories, or Bates-like markers.
+        \item Add validation checks for missing, malformed, or inconsistent metadata.
+    \end{itemize}
+
+    \item Implement a search interface that allows users to retrieve and filter stored case metadata.
+    \begin{itemize}
+        \item Add frontend UI components for search input and results display.
+        \item Create backend API routes to query the PostgreSQL database based on user criteria.
+        \item Return structured search results for user review.
+    \end{itemize}
+
+    \item Strengthen backend error handling and logging.
+    \begin{itemize}
+        \item Add meaningful error responses for invalid search queries.
+        \item Add backend logs for metadata extraction issues or malformed uploads.
+    \end{itemize}
+
+    \item Extend Docker configuration (if needed) to support Snapshot 3 features.
+    \begin{itemize}
+        \item Confirm that no additional volumes or environment variables are required.
+        \item Ensure search and enhanced extraction continue functioning within Docker Compose.
+    \end{itemize}
+
+    \item Update documentation in multiple areas:
+    \begin{itemize}
+        \item Update the User Manual with instructions for performing searches.
+        \item Add new architecture diagrams or workflow updates to the SDD.
+        \item Update the Design Spec to include any new extractors, search algorithms, or UI components.
+    \end{itemize}
+
+    \item Create Snapshot 3 TestRail test cases covering:
+    \begin{itemize}
+        \item Enhanced metadata extraction scenarios.
+        \item Search feature accuracy and expected results.
+        \item Error handling (invalid queries, no matches found, malformed filters).
+    \end{itemize}
+
+    \item Export and upload the Snapshot 3 TestRail report to the repository.
+\end{itemize}
+
+\section*{Completion Summary}
+At the end of Snapshot 3, the system will support improved metadata extraction and provide users with search functionality to browse and filter stored case information. These features significantly enhance the system’s usability and bring the platform closer to its intended final functionality.
+
+\section*{Next Steps (Snapshot 4 Preview)}
+\begin{itemize}
+    \item Final refinements to UI, backend logic, and metadata validation.
+    \item Add any future work not implemented earlier due to scope or time.
+    \item Complete final TestRail report and reflections.
+    \item Conduct final cleanup of documentation, workflow diagrams, and Docker alignment before submission.
+\end{itemize}
+
+\end{document}
