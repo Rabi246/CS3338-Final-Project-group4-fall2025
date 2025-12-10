@@ -8,7 +8,7 @@
 
 \geometry{a4paper, margin=1in}
 
-\title{User Manual}
+\title{User Manual: Intelligent Document Processing \& Case File Search System}
 \author{
     Damarrion Morgan-Harper\\
     \and
@@ -19,7 +19,7 @@
     Samantha Moncada\\
     \and
     Tommy Works\\
-    }
+}
 \date{December 2025}
 
 \setlength{\droptitle}{6cm}
@@ -40,59 +40,107 @@
 \noindent \textbf{Jira Project URL:} \href{https://[YOUR-JIRA-LINK].atlassian.net/}{https://[YOUR-JIRA-LINK].atlassian.net/}
 
 \section*{Project Overview}
-The \textbf{Box.com Discovery Bates Namer} is a cloud-native serverless application designed to automate the ingestion, parsing, and renaming of legal discovery files. By leveraging \textbf{AWS Lambda} and the \textbf{Box Skills Framework}, this tool replaces manual desktop processing with an automated workflow that scales to handle terabytes of data monthly.
+The \textbf{Intelligent Document Processing \& Case File Search System} is a web application designed to help legal staff and analysts upload case-related PDF files, extract key metadata automatically, and search across cases using structured fields. This tool simplifies the process of reviewing police reports, legal documents, and case summaries by replacing manual sorting with automated extraction and searchable storage.
+
+The system converts unstructured PDF documents into searchable metadata fields such as case ID, report date, parties, and officer information, enabling faster document review and improved workflow efficiency.
 
 \section*{Features \& Capabilities}
 \begin{itemize}
-    \item \textbf{Automated Bates Extraction:} Scans uploaded PDFs to identify and extract sequential Bates stamp identifiers.
-    \item \textbf{Metadata Cascade:} automatically captures metadata (PD Case Number, Disc Number) from the parent folder structure and assigns it to the file.
-    \item \textbf{Intelligent Renaming:} Renames files according to the standardized convention: 
-    \begin{quote}
-    \texttt{\{BatesNumber\}\_Disc\{XX\}\_\{OriginalFileName\}.pdf}
-    \end{quote}
-    \item \textbf{Error Notifications:} Detects "soft" errors (e.g., inconsistent stamps) and "critical" errors (e.g., file size limit), notifying the user via email.
+    \item \textbf{Document Upload:} Users can upload PDF case files directly through the web interface.
+    \item \textbf{Metadata Extraction (Simulated or Basic):} The backend extracts fields such as case ID, date, party names, and officer names.
+    \item \textbf{Database Storage:} All extracted metadata is saved in a PostgreSQL database.
+    \item \textbf{Search System:} Users can search for cases using case ID, keywords, or party names.
+    \item \textbf{Case Detail View:} Each case includes a detail page showing structured information.
 \end{itemize}
 
 \newpage
 
 \section*{Usage Instructions}
-\subsection*{1. Folder Naming Convention (Critical)}
-For the automation to trigger correctly, you must upload files into a folder that strictly follows this naming convention:
 
-\begin{center}
-\textbf{\texttt{pd[CaseNumber]\_disc[Number]}}
-\end{center}
-
-\noindent \textbf{Examples:}
-\begin{itemize}
-    \item \texttt{pd12345\_02} (Correct)
-    \item \texttt{Case12345} (Incorrect - Automation will fail)
-\end{itemize}
-
-\subsection*{2. Uploading Files}
+\subsection*{1. Accessing the Application}
 \begin{enumerate}
-    \item Log in to \textbf{Box.com} and navigate to the designated "Skill Applied Folder".
-    \item Create a new folder using the naming convention above (e.g., \texttt{pd55921\_01}).
-    \item Drag and drop your PDF discovery files into this new folder.
-    \item \textbf{Wait:} The system will automatically detect the upload. Within seconds, the file will be renamed and moved to the target directory.
+    \item Ensure the system is running (see Docker instructions below).
+    \item Open a web browser such as Chrome, Edge, or Safari.
+    \item Visit the frontend URL (example): \texttt{http://localhost:3000}
 \end{enumerate}
 
-\section*{Troubleshooting \& Error Messages}
-If a file fails to process, you will receive an automated email notification. Common errors include:
+\subsection*{2. Uploading a Document}
+\begin{enumerate}
+    \item Navigate to the \textbf{Upload} page.
+    \item Click \textbf{Choose File} and select a PDF file.
+    \item Click the \textbf{Upload} button.
+    \item Wait for the success confirmation message.
+\end{enumerate}
 
+\subsection*{3. Searching for Cases}
+\begin{enumerate}
+    \item Navigate to the \textbf{Search} page.
+    \item Type a case ID, party name, or keyword.
+    \item Click \textbf{Search}.
+    \item Matching results will appear in a table.
+\end{enumerate}
+
+\subsection*{4. Viewing Case Details}
+\begin{enumerate}
+    \item Click on a case from the search results list.
+    \item A detailed metadata view will open.
+    \item Optionally download structured JSON/CSV (if implemented).
+\end{enumerate}
+
+\section*{Running the System with Docker}
+
+This project uses Docker and Docker Compose to run all components (database, backend API, frontend UI) together.
+
+\subsection*{Prerequisites}
 \begin{itemize}
-    \item \textbf{"Invalid folder name format"}: You uploaded a file to a folder that does not look like \texttt{pdXXXXX\_XX}. The system may default the disc number to '00' or fail entirely.
-    \item \textbf{"File size exceeds limit"}: The uploaded PDF is larger than 64 MB. AWS Lambda cannot process this file in one pass. Please split the document.
-    \item \textbf{"No Bates stamps found"}: The system could not detect a valid stamp pattern on the first page. Ensure the scan quality is high.
-    \item \textbf{"Duplicate PD case folders"}: A destination folder with this name already exists. The system prevents overwriting data to ensure safety.
+    \item Docker Desktop installed and running.
+    \item Repository cloned from GitHub.
+\end{itemize}
+
+\subsection*{Starting the Application}
+\begin{enumerate}
+    \item Open Docker Desktop and ensure it shows “Engine Running”.
+    \item Open a terminal (Mac Terminal, Windows PowerShell, etc.).
+    \item Navigate into the project directory:
+    \begin{verbatim}
+cd CS3338-Final-Project-group4-fall2025
+    \end{verbatim}
+    \item Start the full system using:
+    \begin{verbatim}
+docker-compose up --build
+    \end{verbatim}
+    \item Once running:
+    \begin{itemize}
+        \item Backend API is at: \texttt{http://localhost:5000}
+        \item Frontend UI is at: \texttt{http://localhost:3000}
+    \end{itemize}
+    \item Open the application in your browser: \texttt{http://localhost:3000}
+\end{enumerate}
+
+\subsection*{Stopping the Application}
+\begin{enumerate}
+    \item In the terminal running Docker, press \texttt{Ctrl + C}.
+    \item To shut everything down cleanly:
+    \begin{verbatim}
+docker-compose down
+    \end{verbatim}
+    \item You may also stop containers manually from Docker Desktop.
+\end{enumerate}
+
+\section*{Troubleshooting}
+\begin{itemize}
+    \item \textbf{Frontend not loading:} Ensure \texttt{frontend} container is running and port 3000 is free.
+    \item \textbf{Backend not responding:} Check the \texttt{backend} container logs for errors.
+    \item \textbf{Upload errors:} Confirm file is a PDF and backend is running.
+    \item \textbf{Database issues:} Ensure the \texttt{db} container is healthy. Restart if needed.
 \end{itemize}
 
 \section*{Technical Requirements}
-Users do not need to install local software. However, the system relies on the following constraints:
 \begin{itemize}
-    \item \textbf{File Type:} PDF Only (Text-readable preferred).
-    \item \textbf{Browser:} Google Chrome, Safari, or Microsoft Edge (Latest Versions).
-    \item \textbf{Internet:} Stable HTTPS connection required for Box API interactions.
+    \item \textbf{Browser:} Chrome, Safari, or Edge (latest versions).
+    \item \textbf{Docker:} Docker Desktop installed and configured.
+    \item \textbf{File Format:} PDF documents for upload.
+    \item \textbf{Network:} Localhost connectivity.
 \end{itemize}
 
 \end{document}
