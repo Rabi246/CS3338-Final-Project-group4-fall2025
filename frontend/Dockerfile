@@ -1,15 +1,16 @@
-# frontend/Dockerfile
+# Frontend Dockerfile (placeholder until React app is built)
+
 FROM node:20-alpine
 
 WORKDIR /app
 
+# If package.json exists later, this will install dependencies
 COPY package*.json ./
 RUN npm install || true
 
 COPY . .
 
-ENV PORT=3000
 EXPOSE 3000
 
-# If using Vite later, change to: npm run dev -- --host 0.0.0.0
+# Placeholder command (team will update if using Vite or CRA)
 CMD ["npm", "start"]
