@@ -43,12 +43,212 @@
 \noindent \textbf{Jira Board URL:}  
 \href{https://calstatela-team4-fall2025.atlassian.net/jira/software/projects/ICFSG4/boards/199}{https://calstatela-team4-fall2025.atlassian.net/jira/software/projects/ICFSG4/boards/199}
 
-All group tasks, sprints, snapshot objectives, and development workflow are managed in Jira.  
-Team members must be logged into Atlassian to access the board.
+All group tasks, sprints, snapshot objectives, and development workflow are managed using Jira.
 
 % ================================
 % PROJECT OVERVIEW
 % ================================
 \section*{Project Overview}
 
-The \textbf{Intelligent Document Processing \& Case File Search System} is a web-based platform designed
+The \textbf{Intelligent Document Processing \& Case File Search System} is a web application designed to streamline legal workflows by converting unstructured PDF police reports, case files, and discovery documents into structured metadata. Users can upload documents, extract case information, and search for records using a simple interface.
+
+The system includes:
+\begin{itemize}
+    \item A frontend React/Vite interface for uploading and searching documents
+    \item A backend Node/Express API for metadata extraction and routing
+    \item A PostgreSQL database for storing structured case information
+    \item Dockerized system for reliable deployment and local testing
+\end{itemize}
+
+% ================================
+% FEATURES
+% ================================
+\section*{Features \& Capabilities}
+\begin{itemize}
+    \item \textbf{Document Upload:} Upload PDF case files through the web interface.
+    \item \textbf{Metadata Extraction (Basic/Simulated):} Extracts fields such as case ID, report date, officer names, and party names.
+    \item \textbf{Database Storage:} Extracted metadata is stored in PostgreSQL.
+    \item \textbf{Search System:} Search by case ID, party name, file name, or date.
+    \item \textbf{Case Detail View:} Displays structured case metadata and optional JSON download.
+    \item \textbf{Docker Deployment:} One command starts backend, frontend, and database.
+\end{itemize}
+
+% ================================
+% USAGE INSTRUCTIONS
+% ================================
+\newpage
+\section*{Usage Instructions}
+
+\subsection*{1. Accessing the Application}
+\begin{enumerate}
+    \item Ensure Docker Desktop is running.
+    \item Start the system using Docker Compose (instructions below).
+    \item Open a browser and go to:  
+    \texttt{http://localhost:3000}
+\end{enumerate}
+
+\subsection*{2. Uploading a Document}
+\begin{enumerate}
+    \item Navigate to the \textbf{Upload} page.
+    \item Click \textbf{Choose File} and select a PDF.
+    \item Click \textbf{Upload}.
+    \item Wait for the confirmation message that metadata has been processed.
+\end{enumerate}
+
+\subsection*{3. Searching for Cases}
+\begin{enumerate}
+    \item Go to the \textbf{Search} page.
+    \item Enter a case ID, officer name, party name, or keyword.
+    \item Click \textbf{Search}.
+    \item Results will appear as a table of matching case files.
+\end{enumerate}
+
+\subsection*{4. Viewing Case Details}
+\begin{enumerate}
+    \item Click a case record from the results.
+    \item A detailed metadata page displays extracted information.
+    \item Optional: download JSON or CSV (future expansion).
+\end{enumerate}
+
+% ================================
+% DOCKER INSTRUCTIONS
+% ================================
+\section*{Running the System with Docker}
+
+The system uses Docker Compose to run all services together:  
+\begin{itemize}
+    \item PostgreSQL database  
+    \item Backend (Node.js/Express)  
+    \item Frontend (React/Vite)  
+\end{itemize}
+
+\subsection*{Prerequisites}
+\begin{itemize}
+   
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\geometry{a4paper, margin=1in}
+
+\title{User Manual: Intelligent Document Processing \& Case File Search System}
+\author{
+    Damarrion Morgan-Harper\\
+    \and
+    Stephany Portillo\\
+    \and
+    Nadia Hernandez\\
+    \and
+    Samantha Moncada\\
+    \and
+    Tommy Works\\
+}
+\date{December 2025}
+
+\setlength{\droptitle}{6cm}
+
+\pagestyle{fancy}
+\fancyhead[L]{User Manual}
+\fancyhead[R]{Page \thepage}
+\fancyfoot[C]{}
+
+\begin{document}
+
+\begin{titlepage}
+\maketitle
+\thispagestyle{empty}
+\end{titlepage}
+
+% ================================
+% JIRA LINK
+% ================================
+\section*{Jira Project Link}
+\noindent \textbf{Jira Board URL:}  
+\href{https://calstatela-team4-fall2025.atlassian.net/jira/software/projects/ICFSG4/boards/199}{https://calstatela-team4-fall2025.atlassian.net/jira/software/projects/ICFSG4/boards/199}
+
+All group tasks, sprints, snapshot objectives, and development workflow are managed using Jira.
+
+% ================================
+% PROJECT OVERVIEW
+% ================================
+\section*{Project Overview}
+
+The \textbf{Intelligent Document Processing \& Case File Search System} is a web application designed to streamline legal workflows by converting unstructured PDF police reports, case files, and discovery documents into structured metadata. Users can upload documents, extract case information, and search for records using a simple interface.
+
+The system includes:
+\begin{itemize}
+    \item A frontend React/Vite interface for uploading and searching documents
+    \item A backend Node/Express API for metadata extraction and routing
+    \item A PostgreSQL database for storing structured case information
+    \item Dockerized system for reliable deployment and local testing
+\end{itemize}
+
+% ================================
+% FEATURES
+% ================================
+\section*{Features \& Capabilities}
+\begin{itemize}
+    \item \textbf{Document Upload:} Upload PDF case files through the web interface.
+    \item \textbf{Metadata Extraction (Basic/Simulated):} Extracts fields such as case ID, report date, officer names, and party names.
+    \item \textbf{Database Storage:} Extracted metadata is stored in PostgreSQL.
+    \item \textbf{Search System:} Search by case ID, party name, file name, or date.
+    \item \textbf{Case Detail View:} Displays structured case metadata and optional JSON download.
+    \item \textbf{Docker Deployment:} One command starts backend, frontend, and database.
+\end{itemize}
+
+% ================================
+% USAGE INSTRUCTIONS
+% ================================
+\newpage
+\section*{Usage Instructions}
+
+\subsection*{1. Accessing the Application}
+\begin{enumerate}
+    \item Ensure Docker Desktop is running.
+    \item Start the system using Docker Compose (instructions below).
+    \item Open a browser and go to:  
+    \texttt{http://localhost:3000}
+\end{enumerate}
+
+\subsection*{2. Uploading a Document}
+\begin{enumerate}
+    \item Navigate to the \textbf{Upload} page.
+    \item Click \textbf{Choose File} and select a PDF.
+    \item Click \textbf{Upload}.
+    \item Wait for the confirmation message that metadata has been processed.
+\end{enumerate}
+
+\subsection*{3. Searching for Cases}
+\begin{enumerate}
+    \item Go to the \textbf{Search} page.
+    \item Enter a case ID, officer name, party name, or keyword.
+    \item Click \textbf{Search}.
+    \item Results will appear as a table of matching case files.
+\end{enumerate}
+
+\subsection*{4. Viewing Case Details}
+\begin{enumerate}
+    \item Click a case record from the results.
+    \item A detailed metadata page displays extracted information.
+    \item Optional: download JSON or CSV (future expansion).
+\end{enumerate}
+
+% ================================
+% DOCKER INSTRUCTIONS
+% ================================
+\section*{Running the System with Docker}
+
+The system uses Docker Compose to run all services together:  
+\begin{itemize}
+    \item PostgreSQL database  
+    \item Backend (Node.js/Express)  
+    \item Frontend (React/Vite)  
+\end{itemize}
+
+\subsection*{Prerequisites}
+\begin{itemize}
+   
