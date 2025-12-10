@@ -36,111 +36,19 @@
 \thispagestyle{empty}
 \end{titlepage}
 
+% ================================
+% JIRA LINK
+% ================================
 \section*{Jira Project Link}
-\noindent \textbf{Jira Project URL:} \href{https://[YOUR-JIRA-LINK].atlassian.net/}{https://[YOUR-JIRA-LINK].atlassian.net/}
+\noindent \textbf{Jira Board URL:}  
+\href{https://calstatela-team4-fall2025.atlassian.net/jira/software/projects/ICFSG4/boards/199}{https://calstatela-team4-fall2025.atlassian.net/jira/software/projects/ICFSG4/boards/199}
 
+All group tasks, sprints, snapshot objectives, and development workflow are managed in Jira.  
+Team members must be logged into Atlassian to access the board.
+
+% ================================
+% PROJECT OVERVIEW
+% ================================
 \section*{Project Overview}
-The \textbf{Intelligent Document Processing \& Case File Search System} is a web application designed to help legal staff and analysts upload case-related PDF files, extract key metadata automatically, and search across cases using structured fields. This tool simplifies the process of reviewing police reports, legal documents, and case summaries by replacing manual sorting with automated extraction and searchable storage.
 
-The system converts unstructured PDF documents into searchable metadata fields such as case ID, report date, parties, and officer information, enabling faster document review and improved workflow efficiency.
-
-\section*{Features \& Capabilities}
-\begin{itemize}
-    \item \textbf{Document Upload:} Users can upload PDF case files directly through the web interface.
-    \item \textbf{Metadata Extraction (Simulated or Basic):} The backend extracts fields such as case ID, date, party names, and officer names.
-    \item \textbf{Database Storage:} All extracted metadata is saved in a PostgreSQL database.
-    \item \textbf{Search System:} Users can search for cases using case ID, keywords, or party names.
-    \item \textbf{Case Detail View:} Each case includes a detail page showing structured information.
-\end{itemize}
-
-\newpage
-
-\section*{Usage Instructions}
-
-\subsection*{1. Accessing the Application}
-\begin{enumerate}
-    \item Ensure the system is running (see Docker instructions below).
-    \item Open a web browser such as Chrome, Edge, or Safari.
-    \item Visit the frontend URL (example): \texttt{http://localhost:3000}
-\end{enumerate}
-
-\subsection*{2. Uploading a Document}
-\begin{enumerate}
-    \item Navigate to the \textbf{Upload} page.
-    \item Click \textbf{Choose File} and select a PDF file.
-    \item Click the \textbf{Upload} button.
-    \item Wait for the success confirmation message.
-\end{enumerate}
-
-\subsection*{3. Searching for Cases}
-\begin{enumerate}
-    \item Navigate to the \textbf{Search} page.
-    \item Type a case ID, party name, or keyword.
-    \item Click \textbf{Search}.
-    \item Matching results will appear in a table.
-\end{enumerate}
-
-\subsection*{4. Viewing Case Details}
-\begin{enumerate}
-    \item Click on a case from the search results list.
-    \item A detailed metadata view will open.
-    \item Optionally download structured JSON/CSV (if implemented).
-\end{enumerate}
-
-\section*{Running the System with Docker}
-
-This project uses Docker and Docker Compose to run all components (database, backend API, frontend UI) together.
-
-\subsection*{Prerequisites}
-\begin{itemize}
-    \item Docker Desktop installed and running.
-    \item Repository cloned from GitHub.
-\end{itemize}
-
-\subsection*{Starting the Application}
-\begin{enumerate}
-    \item Open Docker Desktop and ensure it shows “Engine Running”.
-    \item Open a terminal (Mac Terminal, Windows PowerShell, etc.).
-    \item Navigate into the project directory:
-    \begin{verbatim}
-cd CS3338-Final-Project-group4-fall2025
-    \end{verbatim}
-    \item Start the full system using:
-    \begin{verbatim}
-docker-compose up --build
-    \end{verbatim}
-    \item Once running:
-    \begin{itemize}
-        \item Backend API is at: \texttt{http://localhost:5000}
-        \item Frontend UI is at: \texttt{http://localhost:3000}
-    \end{itemize}
-    \item Open the application in your browser: \texttt{http://localhost:3000}
-\end{enumerate}
-
-\subsection*{Stopping the Application}
-\begin{enumerate}
-    \item In the terminal running Docker, press \texttt{Ctrl + C}.
-    \item To shut everything down cleanly:
-    \begin{verbatim}
-docker-compose down
-    \end{verbatim}
-    \item You may also stop containers manually from Docker Desktop.
-\end{enumerate}
-
-\section*{Troubleshooting}
-\begin{itemize}
-    \item \textbf{Frontend not loading:} Ensure \texttt{frontend} container is running and port 3000 is free.
-    \item \textbf{Backend not responding:} Check the \texttt{backend} container logs for errors.
-    \item \textbf{Upload errors:} Confirm file is a PDF and backend is running.
-    \item \textbf{Database issues:} Ensure the \texttt{db} container is healthy. Restart if needed.
-\end{itemize}
-
-\section*{Technical Requirements}
-\begin{itemize}
-    \item \textbf{Browser:} Chrome, Safari, or Edge (latest versions).
-    \item \textbf{Docker:} Docker Desktop installed and configured.
-    \item \textbf{File Format:} PDF documents for upload.
-    \item \textbf{Network:} Localhost connectivity.
-\end{itemize}
-
-\end{document}
+The \textbf{Intelligent Document Processing \& Case File Search System} is a web-based platform designed
