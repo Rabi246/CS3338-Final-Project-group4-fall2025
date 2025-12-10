@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{array}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\LARGE \textbf{Design Specification Document}\par}
+    \vspace{1.2cm}
+    {\large Project: \textbf{Lab Activity 14}\par}
+    \vspace{0.5cm}
+    {\large Group 4\par}
+    \vspace{0.5cm}
+    {\large December 2025\par}
+    \vfill
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%========================
+% 1. Introduction
+%========================
+\section{Introduction}
+
+This Design Specification outlines all components, tools, and dependencies used in the development and deployment of the system. It provides detailed descriptions of each module and the required libraries for proper system execution within Docker containers.
+
+%========================
+% 2. System Pages / Modules
+%========================
+\section{System Components}
+
+\subsection{Frontend}
+The frontend serves as the user interface of the system. It allows users to upload files, view results, and interact with the application.
+
+\subsection{Backend}
+The backend handles file processing, API requests, database interactions, and routing.
+
+\subsection{Database}
+A PostgreSQL database is used to store structured metadata and case information.
+
+\newpage
+
+%========================
+% 3. Docker Container Architecture
+%========================
+\section{Docker Container Architecture}
+
+The system is deployed using Docker Compose, which orchestrates three primary containers:
+
+\begin{itemize}
+    \item \textbf{Frontend Container} – React-based UI, exposed on port 3000.
+    \item \textbf{Backend Container} – Node/Express API, exposed on port 5000.
+    \item \textbf{Database Container} – PostgreSQL instance, internal port 5432.
+\end{itemize}
+
+Each container runs in an isolated environment and communicates over a shared Docker network created by Docker Compose.
+
+\newpage
+
+%========================
+% 4. Container Dependencies
+%========================
+\section{Container Dependencies and Required Libraries}
+
+This section lists all packages and dependencies required inside each Docker container to run the system.
+
+\subsection{Frontend Container Dependencies}
+
+\begin{itemize}
+    \item \textbf{Base Image:} node:20-alpine
+    \item \textbf{JavaScript Libraries:}
+    \begin{itemize}
+        \item react
+        \item react-dom
+        \item react-router-dom
+        \item vite or react-scripts
+    \end{itemize}
+\end{itemize}
+
+\subsection{Backend Container Dependencies}
+
+\begin{itemize}
+    \item \textbf{Base Image:} node:20-alpine
+    \item \textbf{Required Node Packages:}
+    \begin{itemize}
+        \item express
+        \item pg
+        \item cors
+        \item multer
+        \item dotenv
+        \item nodemon
+    \end{itemize}
+\end{itemize}
+
+\subsection{Database Container Dependencies}
+
+\begin{itemize}
+    \item \textbf{Base Image:} postgres:16
+    \item \textbf{Internal Tools:}
+    \begin{itemize}
+        \item psql command-line tools
+        \item persistent Docker volume (\texttt{db-data})
+    \end{itemize}
+\end{itemize}
+
+\subsection{Host Machine Requirements}
+
+\begin{itemize}
+    \item Docker Desktop installed
+    \item Internet access to pull images
+    \item Disk space for database volume and container layers
+\end{itemize}
+
+\end{document}
