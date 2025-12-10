@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Snapshot 2 Objectives \\ Intelligent Document Processing \& Case File Search System}
+\author{Group 4: Tommy Works, Nadia Hernandez, Damarrion Morgan-Harper,\\
+Samantha Moncada, Stephany Portillo}
+\date{December 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+Snapshot 2 introduces the first major functional feature of the system: file uploading and basic metadata extraction. This snapshot builds on the infrastructure created in Snapshot 1 and enables an end-to-end workflow involving the frontend, backend, and database. The system is now capable of receiving PDF files, processing them, and storing extracted metadata while operating entirely within a Dockerized environment.
+
+\section*{Snapshot 2 Objectives}
+
+\begin{itemize}
+    \item Implement the initial document upload functionality from the frontend to the backend.
+    \item Develop backend API routes to receive uploaded PDF files and perform basic or simulated metadata extraction.
+    \item Store extracted metadata into the PostgreSQL database for later retrieval and searching.
+    \item Update Docker services to support file uploads:
+    \begin{itemize}
+        \item Add an upload volume (\texttt{./backend/uploads:/app/uploads}) to the backend container.
+        \item Add environment variables to \texttt{backend/.env} including \texttt{UPLOAD\_DIR} and \texttt{MAX\_FILE\_SIZE\_MB}.
+        \item Ensure file handling works properly when running within Docker Compose.
+    \end{itemize}
+    \item Update the User Manual to include instructions for uploading documents.
+    \item Update the SDD and Design Spec to reflect the new file upload architecture, Docker volume usage, and metadata extraction workflow.
+    \item Create TestRail test cases for:
+    \begin{itemize}
+        \item File upload success
+        \item Invalid or oversized file handling
+        \item Metadata extraction and storage validation
+        \item Error notifications or backend response errors
+    \end{itemize}
+    \item Generate a Snapshot 2 TestRail report and store it in the repository.
+\end{itemize}
+
+\section*{Completion Summary}
+At the end of Snapshot 2, the system supports uploading PDF documents, processing them through the backend, and storing resulting metadata inside the database—all running inside Docker containers. This snapshot completes the foundational workflow for the IDP Case File System and prepares the team for Snapshot 3, which will introduce search, filtering, and expanded metadata handling.
+
+\section*{Next Steps (Snapshot 3 Preview)}
+\begin{itemize}
+    \item Improve metadata extraction logic using structured parsing.
+    \item Implement the search interface for browsing stored case metadata.
+    \item Add validation and error-handling improvements to the upload workflow.
+    \item Create additional TestRail cases focusing on search accuracy and system integrity.
+\end{itemize}
+
+\end{document}
