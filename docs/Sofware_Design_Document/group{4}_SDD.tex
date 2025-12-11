@@ -9,7 +9,6 @@
 \usepackage{setspace}
 \setcounter{secnumdepth}{4}
 
-
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -56,13 +55,13 @@
     \hline
     \textbf{Version} & \textbf{Description} & \textbf{Date} \\
     \hline
-    1.0 &  Snapshot 1. Created system overview and basic architecture. & December 5, 2025 \\
+    1.0 & Snapshot 1. Created system overview and basic architecture. & December 5, 2025 \\
     \hline
-    2.0 &  Snapshot 2. Expanded architecture; added AWS + Box components. & December 5, 2025 \\
+    2.0 & Snapshot 2. Expanded architecture; added AWS + Box components. & December 5, 2025 \\
     \hline
-   3.0 & Snapshot 3. Added workflow details and error-handling descriptions. & December 8, 2025 \\
+    3.0 & Snapshot 3. Added workflow details and error-handling descriptions. & December 8, 2025 \\
     \hline
-   4.0 & Snapshot 4. Final revisions; added UI section, glossary updates, formatting fixes.& December 10, 2025 \\
+    4.0 & Snapshot 4. Final revisions; added UI section, glossary updates, formatting fixes. & December 10, 2025 \\
     \hline
 \end{longtable}
 
@@ -74,7 +73,7 @@
 \section{Introduction}
 
 \subsection{Purpose of the Document}
-The purpose of this document is to provide a detail description of the Design details that will be used for Box Discovery Bates Namer. This sofware is a transition from a desktop-based system to a cloud based one. This Sofware Design Document(SSD)  covers the system architecture, user interface and intended audience for the application.
+The purpose of this document is to provide a detail description of the Design details that will be used for Box Discovery Bates Namer. This sofware is a transition from a desktop-based system to a cloud based one. This Sofware Design Document(SSD) covers the system architecture, user interface and intended audience for the application.
 
 \subsection{Intended Audience}
 This document is intended for:
@@ -82,14 +81,15 @@ This document is intended for:
     \item The development team implementing the system.
     \item The course instructor and teaching assistants reviewing the design.
     \item Future developers who may extend or maintain the system.
-   \item Various Stakeholders
+    \item Various Stakeholders
 \end{itemize}
 
 \subsection{Overview of the System}
-The \textbf{Box Discovery Bates Namer} is a cloud based solution designed to automate the prossessing the legal discovery PDF files. The applications extrats Bates numbers, Validates their sequence and renames the files accordingly and are stored in Box.com.
+The \textbf{Box Discovery Bates Namer} is a cloud based solution designed to automate the prossessing the legal discovery PDF files. The application extracts Bates numbers, validates their sequence, renames the files accordingly, and stores them in Box.com.
+
 \newline
-\newline
-The System leverages a \textbf{serverless architecture} using \textbf{AWS Lambda functions} for scalability and efficiency. Upon a file upload event to \textbf{Box.com} , the application processes the files in memory to preserve data  confidentiality and complies with data privacy requirements.
+The system leverages a \textbf{serverless architecture} using \textbf{AWS Lambda functions} for scalability and efficiency. Upon a file upload event to \textbf{Box.com}, the application processes the files in memory to preserve data confidentiality and comply with data privacy requirements.
+
 \subsubsection{Key Features}
 
 \subparagraph{Integration with Box.com}
@@ -118,33 +118,40 @@ This system provides a robust and efficient solution for legal professionals by 
 The Box Discovery Bates Namer follows an automated, event-driven workflow that 
 integrates Box.com with AWS Lambda to process, validate, and rename legal discovery
 PDF files. The workflow begins when the user uploads a discovery folder into Box.com
-and ends when files are renamed, validated, organized, or flagged for errors. The 
-following summarizes the complete workflow as described.
+and ends when files are renamed, validated, organized, or flagged for errors.
 
 \begin{enumerate}
-    \item \textbf{User Uploads Discovery Files to Box.com} \\
+    \item \textbf{User Uploads Discovery Files to Box.com}  
     A legal professional uploads a folder using the naming format 
     \texttt{PDCase\#\_Disc\#} (e.g., \texttt{PD251234\_02}). Each PDF uploaded 
-    triggers the Box Custom Skill, which sends an event to the system.
+    triggers the Box Custom Skill.
 
-    \item \textbf{Box Custom Skill Triggers AWS Processing Pipeline} \\
-    Box issues a webhook request to an HTTPS API Gateway endpoint, which invokes
+    \item \textbf{Box Custom Skill Triggers AWS Processing Pipeline}  
+    Box sends a webhook request to an HTTPS API Gateway endpoint, which invokes
     the first Lambda function.
 
-    \item \textbf{BoxInputFunction Captures File Metadata} \\
-    The initial Lambda function validates the webhook and extracts file metadata
-    including:
+    \item \textbf{BoxInputFunction Captures File Metadata}  
+    The initial Lambda function validates the webhook and extracts file metadata:
     \begin{itemize}
-        \item \texttt{file\_id}
-        \item \texttt{file\_name}
-        \item \texttt{folder\_id}
-        \item \texttt{access\_token}
-        \item \texttt{user\_id}
+        \item file\_id
+        \item file\_name
+        \item folder\_id
+        \item access\_token
+        \item user\_id
     \end{itemize}
-    A custom payload is constructed and forwarded to the next Lambda function.
 \end{enumerate}
+
 This automated workflow eliminates manual processing, ensures file consistency, 
 and provides reliable error reporting for legal professionals.
+
+% ==============================
+% INSERT WORKFLOW DIAGRAM HERE
+% ==============================
+\begin{figure}[h!]
+\centering
+\input{../WorkflowDiagram.tex}
+\caption{High-Level Workflow Diagram for Box Discovery Bates Namer}
+\end{figure}
 
 \subsection{System Components}
 
@@ -157,16 +164,15 @@ Event-driven functions that perform the core processing:
     \item \textbf{BoxInputFunction} – Validates the webhook and extracts file metadata.
     \item \textbf{BoxFolderGetter} – Retrieves the folder name to identify the PD Case and Disc Number.
     \item \textbf{DiscoveryBatesNamer} – Downloads the PDF, extracts and validates Bates numbers, and generates the new filename.
-    \item \textbf{BoxFileUpdater} – Renames and moves the processed file into the correct Box folder.
-    \item \textbf{BoxErrorNotification} – Sends user error notifications via email.
+    \item \textbf{BoxFileUpdater} – Renames and moves the processed file into the appropriate Box folder.
+    \item \textbf{BoxErrorNotification} – Sends error notifications via AWS SES.
 \end{itemize}
 
 \subsubsection{Box API}
-Handles file storage operations, including:
 \begin{itemize}
-    \item Downloading files for processing,
-    \item Renaming files,
-    \item Moving files to the appropriate destination folder.
+    \item Downloads files for processing.
+    \item Renames files based on extracted Bates sequence.
+    \item Moves files to the correct folder based on PD Case and Disc number.
 \end{itemize}
 
 \subsubsection{AWS API Gateway}
@@ -174,38 +180,10 @@ Provides the HTTPS endpoint that receives webhook events from Box and triggers t
 Lambda pipeline.
 
 \subsubsection{AWS SES}
-Sends email notifications to users when a file cannot be processed.
+Sends automated email notifications when errors occur.
 
 \subsubsection{AWS CloudWatch}
-Logs all Lambda activity for debugging and monitoring.
-
-\subsection{Deployment Architecture}
-
-The Box Discovery Bates Namer is deployed entirely using a serverless cloud 
-architecture. No traditional servers, containers, or databases are required. All 
-processing occurs through AWS-managed services that scale automatically.
-
-\begin{itemize}
-    \item \textbf{AWS Lambda} hosts all processing logic for metadata extraction, 
-    Bates number parsing, file renaming, and error notifications. Each Lambda 
-    function runs independently and is invoked only when needed, reducing cost and 
-    improving scalability.
-
-    \item \textbf{AWS API Gateway} provides the public HTTPS endpoint that receives 
-    webhook events from Box.com and triggers the first Lambda function.
-
-    \item \textbf{AWS Secrets Manager} stores Box API credentials securely and 
-    provides them to Lambda functions at runtime.
-
-    \item \textbf{Box Custom Skill} triggers the pipeline whenever a PDF is uploaded 
-    into the designated folder in Box.com.
-
-    \item \textbf{AWS CloudWatch} records execution logs, performance metrics, 
-    and error reports for all Lambda functions.
-\end{itemize}
-
-Because the system is fully serverless, no container orchestration, local servers, or 
-manual deployment environments are required.
+Captures logs, execution metrics, and error traces for debugging.
 
 \newpage
 
@@ -217,49 +195,34 @@ manual deployment environments are required.
 \subsection{Overview}
 The Box Discovery Bates Namer does not require a custom user interface. All user
 interaction occurs through the existing Box.com platform. Users upload discovery
-folders and PDF files directly into a designated skill-enabled folder in Box, and the
-system automatically processes each file through AWS Lambda without requiring further
-user input.
+folders and PDF files directly into a designated skill-enabled folder, and the
+system automatically processes each file.
 
 \subsection{How Users Interact With the System}
 \begin{itemize}
-    \item Users log into Box.com and navigate to the skill-enabled “Skills Applied” folder.
-    \item The user uploads a folder named using the required format (e.g., \texttt{PD251234\_02}).
-    \item As files are uploaded, the system automatically extracts Bates numbers, renames files, and moves them to the appropriate destination folder.
-    \item If errors occur (such as missing Bates stamps or incorrect folder naming), the user receives an email notification with details and a link to the affected file.
+    \item Log into Box.com.
+    \item Navigate to the “Skills Applied” folder.
+    \item Upload a correctly named folder (e.g., \texttt{PD251234\_02}).
+    \item System renames files, validates sequences, and moves completed files automatically.
+    \item Errors (missing Bates, wrong folder name, invalid files) trigger email notifications.
 \end{itemize}
 
 \subsection{User Interface Screens}
-The user experience consists of standard Box.com screens, including:
+Users only interact with:
 \begin{itemize}
-    \item The Box folder view where discovery files are uploaded.
-    \item The upload interface used to add PDF files to the designated folder.
+    \item The Box folder view  
+    \item The PDF upload interface  
 \end{itemize}
 
-All processing occurs automatically in the background; therefore, no additional UI elements are required.
+All processing happens in the background.
 
 \subsection{Data Storage and Management}
 
-The system does not use a traditional relational database. Instead, it relies on 
-cloud-managed storage services to maintain the information required for processing
-and auditing:
-
 \begin{itemize}
-    \item \textbf{Box.com} acts as the primary storage system for discovery files. 
-    It stores the original PDFs, renamed documents, and the folder structure used 
-    to organize files by PD Case Number and Disc Number.
-
-    \item \textbf{AWS Secrets Manager} stores sensitive credentials such as Box API 
-    keys and authentication tokens. These values are securely retrieved by Lambda 
-    functions at runtime.
-
-    \item \textbf{AWS CloudWatch Logs} serves as the operational record-keeping 
-    system, storing processing logs, error reports, execution traces, and audit 
-    information for each file that moves through the pipeline.
+    \item \textbf{Box.com} stores all PDFs and renamed files.
+    \item \textbf{AWS Secrets Manager} stores Box credentials.
+    \item \textbf{AWS CloudWatch Logs} stores execution logs and error history.
 \end{itemize}
-
-Together, these services fulfill the system’s storage, security, and traceability needs
-without requiring a standalone database engine.
 
 \newpage
 
@@ -284,16 +247,17 @@ without requiring a standalone database engine.
     SDD & Software Design Document \\
     \hline
 \end{longtable}
+
 \begin{longtable}{|>{\centering\arraybackslash}m{3cm}|
                       >{\arraybackslash}m{9cm}|}
     \hline
-    \textbf{Key Deffinitions} & \textbf{Definition} \\
+    \textbf{Key Definitions} & \textbf{Definition} \\
     \hline
-    Bates Number &Commonly used in the discovery phase of legal cases, bates numbers are a sequential identifier assigned to each page of a legal document for tracking and referencing  \\
+    Bates Number & Sequential identifier assigned to legal document pages. \\
     \hline
-    Box.com &  A cloud-based file storage platform used for document organization and collaboration  \\
+    Box.com & Cloud-based file storage and collaboration platform. \\
     \hline
-    AWS Lambda & A serverless computing service provided by Amazon Web Services that executes code in response to events, eliminating the need to manage and maintain servers  \\
+    AWS Lambda & Serverless compute service that runs code in response to events. \\
     \hline
 \end{longtable}
 
@@ -308,9 +272,8 @@ without requiring a standalone database engine.
 \bibitem{source}
 Santa Barbara Public Defender’s Office. 
 \textit{Software Design Document for Box Discovery Bates Namer Integration into Cloud Environment}. 
-Version 1.1.2, April 10, 2025. https://ascent.cysun.org/project/project/view/221
+Version 1.1.2, April 10, 2025.  
+\url{https://ascent.cysun.org/project/project/view/221}
 \end{thebibliography}
 
-
 \end{document}
-
