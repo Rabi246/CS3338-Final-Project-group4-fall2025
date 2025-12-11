@@ -7,6 +7,9 @@
 
 \begin{document}
 
+%========================
+% COVER PAGE
+%========================
 \begin{titlepage}
     \centering
     \vspace*{2cm}
@@ -14,107 +17,310 @@
     \vspace{1.2cm}
     {\large Project: \textbf{Lab Activity 14}\par}
     \vspace{0.5cm}
-    {\large Group 4\par}
+    {\large Group 4: Tommy Works, Nadia Hernandez, Damarion M.P,\\ Samantha V.M, Stephany C.P\par}
     \vspace{0.5cm}
     {\large December 2025\par}
     \vfill
 \end{titlepage}
 
+%========================
+% TABLE OF CONTENTS
+%========================
 \tableofcontents
 \newpage
 
 %========================
-% 1. Introduction
+% VERSION HISTORY
+%========================
+\section*{Version History}
+\addcontentsline{toc}{section}{Version History}
+
+\begin{longtable}{|m{3cm}|m{8cm}|m{3cm}|}
+\hline
+\textbf{Version} & \textbf{Description} & \textbf{Date} \\
+\hline
+1.0 & Initial design specification with system components and Docker dependencies. & Dec 5, 2025 \\ \hline
+2.0 & Added UI breakdown, backend API endpoints, and database structure. & Dec 8, 2025 \\ \hline
+3.0 & Added system architecture diagrams and processing workflows. & Dec 9, 2025 \\ \hline
+4.0 & Finalized document for submission. & Dec 11, 2025 \\ \hline
+\end{longtable}
+
+\newpage
+
+%========================
+% 1. INTRODUCTION
 %========================
 \section{Introduction}
 
-This Design Specification outlines all components, tools, and dependencies used in the development and deployment of the system. It provides detailed descriptions of each module and the required libraries for proper system execution within Docker containers.
+This Design Specification describes the architecture, modules, dependencies, and system interactions for the \textbf{Intelligent Document Processing \& Case File System}. It defines how each part of the system is implemented and deployed using Docker containers.
+
+The system includes:
+
+\begin{itemize}
+    \item A \textbf{frontend} (React/Vite) for uploading and searching case files  
+    \item A \textbf{backend} (Node.js/Express) for processing PDF uploads and database interactions  
+    \item A \textbf{PostgreSQL} database for storing structured metadata  
+    \item A \textbf{Docker Compose} environment that runs all services together  
+\end{itemize}
+
+\newpage
 
 %========================
-% 2. System Pages / Modules
+% 2. SYSTEM COMPONENTS
 %========================
 \section{System Components}
 
 \subsection{Frontend}
-The frontend serves as the user interface of the system. It allows users to upload files, view results, and interact with the application.
+The frontend is responsible for all user interactions:
+
+\begin{itemize}
+    \item Uploading PDF case files  
+    \item Viewing search results  
+    \item Navigating between pages  
+    \item Viewing extracted case details  
+\end{itemize}
 
 \subsection{Backend}
-The backend handles file processing, API requests, database interactions, and routing.
+The backend handles:
+
+\begin{itemize}
+    \item PDF upload routing
+    \item Metadata extraction logic (basic/simulated)
+    \item Database insertion and retrieval
+    \item API communication with the frontend
+\end{itemize}
 
 \subsection{Database}
-A PostgreSQL database is used to store structured metadata and case information.
+The PostgreSQL database stores all extracted metadata using structured tables.
 
 \newpage
 
 %========================
-% 3. Docker Container Architecture
+% 3. SYSTEM ARCHITECTURE
+%========================
+\section{System Architecture}
+
+\subsection{High-Level Architecture}
+\begin{verbatim}
++-------------+        +--------------------+        +----------------+
+|             |        |                    |        |                |
+|   FRONTEND  | <----> |     BACKEND API    | <----> |   POSTGRESQL   |
+|  React/Vite |        | Node.js/Express    |        |   Database     |
+|             |        |                    |        |                |
++-------------+        +--------------------+        +----------------+
+
+                    +----------------------------+
+                    |         Docker Engine      |
+                    |  (Runs all containers)     |
+                    +----------------------------+
+\end{verbatim}
+
+\subsection{Data Flow}
+\begin{enumerate}
+    \item User uploads a PDF from the frontend.
+    \item Backend receives and processes the file.
+    \item Metadata is extracted and inserted into PostgreSQL.
+    \item User performs a search query.
+    \item Backend retrieves results and sends them to the frontend.
+\end{enumerate}
+
+\newpage
+
+%========================
+% 4. USER INTERFACE DESIGN
+%========================
+\section{User Interface Design}
+
+\subsection{4.1 Home Page}
+\begin{itemize}
+    \item Provides overview of the system
+    \item Navigation links to Upload and Search pages
+\end{itemize}
+
+\subsection{4.2 Upload Page}
+\begin{itemize}
+    \item File input field for selecting a PDF
+    \item Upload button
+    \item Success and error messages
+\end{itemize}
+
+\subsection{4.3 Search Page}
+\begin{itemize}
+    \item Search inputs: Case ID, keyword, officer name
+    \item Table displaying matching results
+    \item Link to Case Detail page
+\end{itemize}
+
+\subsection{4.4 Case Detail Page}
+\begin{itemize}
+    \item Case ID
+    \item Report Date
+    \item Parties involved
+    \item Officer names
+    \item Original filename
+\end{itemize}
+
+\newpage
+
+%========================
+% 5. BACKEND DESIGN
+%========================
+\section{Backend Design}
+
+\subsection{Technologies Used}
+\begin{itemize}
+    \item Node.js
+    \item Express.js
+    \item Multer (file uploads)
+    \item pg (PostgreSQL library)
+    \item dotenv
+\end{itemize}
+
+\subsection{API Endpoints}
+
+\begin{longtable}{|m{4cm}|m{10cm}|}
+\hline
+\textbf{Endpoint} & \textbf{Description} \\ \hline
+
+POST /upload & Accepts a PDF upload, extracts metadata, saves to database. \\ \hline
+GET /search & Executes search query on stored metadata. \\ \hline
+GET /case/:id & Returns detailed information for a specific case. \\ \hline
+
+\end{longtable}
+
+\subsection{Processing Workflow}
+\begin{enumerate}
+    \item User uploads a PDF.
+    \item Backend stores file temporarily.
+    \item Metadata is extracted (basic simulation).
+    \item Database insertion occurs.
+    \item Backend sends confirmation to frontend.
+\end{enumerate}
+
+\newpage
+
+%========================
+% 6. DATABASE DESIGN
+%========================
+\section{Database Design}
+
+\subsection{Database Engine}
+\begin{itemize}
+    \item PostgreSQL 16 running in a Docker container
+\end{itemize}
+
+\subsection{Table: cases}
+
+\begin{longtable}{|m{4cm}|m{10cm}|}
+\hline
+\textbf{Column} & \textbf{Description} \\ \hline
+
+id (PK) & Auto-increment primary key \\ \hline
+case\_id & Extracted case number \\ \hline
+report\_date & Extracted document date \\ \hline
+parties & List or JSON array of party names \\ \hline
+officers & List or JSON array of officer names \\ \hline
+filename & Original uploaded filename \\ \hline
+
+\end{longtable}
+
+\newpage
+
+%========================
+% 7. DOCKER CONTAINER ARCHITECTURE
 %========================
 \section{Docker Container Architecture}
 
-The system is deployed using Docker Compose, which orchestrates three primary containers:
+The system uses Docker Compose to manage three containers:
 
 \begin{itemize}
-    \item \textbf{Frontend Container} – React-based UI, exposed on port 3000.
-    \item \textbf{Backend Container} – Node/Express API, exposed on port 5000.
-    \item \textbf{Database Container} – PostgreSQL instance, internal port 5432.
+    \item \textbf{Frontend Container} – Runs React/Vite on port 3000
+    \item \textbf{Backend Container} – Runs Node.js/Express on port 5000
+    \item \textbf{Database Container} – Runs PostgreSQL on port 5432
 \end{itemize}
 
-Each container runs in an isolated environment and communicates over a shared Docker network created by Docker Compose.
+\subsection{docker-compose.yml}
+
+\begin{verbatim}
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: cs3338
+      POSTGRES_PASSWORD: cs3338password
+      POSTGRES_DB: idp_casefiles
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
+\end{verbatim}
 
 \newpage
 
 %========================
-% 4. Container Dependencies
+% 8. SYSTEM DEPENDENCIES
 %========================
-\section{Container Dependencies and Required Libraries}
+\section{System Dependencies}
 
-This section lists all packages and dependencies required inside each Docker container to run the system.
-
-\subsection{Frontend Container Dependencies}
-
+\subsection{Frontend Dependencies}
 \begin{itemize}
-    \item \textbf{Base Image:} node:20-alpine
-    \item \textbf{JavaScript Libraries:}
-    \begin{itemize}
-        \item react
-        \item react-dom
-        \item react-router-dom
-        \item vite or react-scripts
-    \end{itemize}
+    \item react
+    \item react-dom
+    \item axios
+    \item vite
 \end{itemize}
 
-\subsection{Backend Container Dependencies}
-
+\subsection{Backend Dependencies}
 \begin{itemize}
-    \item \textbf{Base Image:} node:20-alpine
-    \item \textbf{Required Node Packages:}
-    \begin{itemize}
-        \item express
-        \item pg
-        \item cors
-        \item multer
-        \item dotenv
-        \item nodemon
-    \end{itemize}
+    \item express
+    \item pg
+    \item multer
+    \item dotenv
+    \item cors
 \end{itemize}
 
-\subsection{Database Container Dependencies}
-
+\subsection{Docker Requirements}
 \begin{itemize}
-    \item \textbf{Base Image:} postgres:16
-    \item \textbf{Internal Tools:}
-    \begin{itemize}
-        \item psql command-line tools
-        \item persistent Docker volume (\texttt{db-data})
-    \end{itemize}
+    \item Docker Desktop
+    \item docker-compose
+    \item PostgreSQL 16 image
+    \item Node 20-alpine base images
 \end{itemize}
 
-\subsection{Host Machine Requirements}
+\newpage
+
+%========================
+% 9. REFERENCES
+%========================
+\section{References}
 
 \begin{itemize}
-    \item Docker Desktop installed
-    \item Internet access to pull images
-    \item Disk space for database volume and container layers
+    \item React Documentation – https://react.dev  
+    \item Express.js Documentation – https://expressjs.com  
+    \item PostgreSQL Documentation – https://postgresql.org  
+    \item Docker Documentation – https://docs.docker.com  
 \end{itemize}
 
 \end{document}
+
