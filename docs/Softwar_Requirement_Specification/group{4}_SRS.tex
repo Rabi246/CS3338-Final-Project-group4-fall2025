@@ -15,9 +15,6 @@
 
 \begin{document}
 
-%========================
-% COVER PAGE
-%========================
 \begin{titlepage}
     \centering
     \vspace*{2cm}
@@ -29,21 +26,15 @@
     \vspace{0.5cm}
     {\large Group Number: \textbf{4}\par}
     \vspace{0.5cm}
-    {\large Version: \textbf{1.0}\par}
+    {\large Version: \textbf{4.0}\par}
     \vfill
     {\large Date: \textbf{December 2025}\par}
     \vspace{2cm}
 \end{titlepage}
 
-%========================
-% TABLE OF CONTENTS
-%========================
 \tableofcontents
 \newpage
 
-%========================
-% VERSION DESCRIPTION
-%========================
 \section*{Version Description}
 \addcontentsline{toc}{section}{Version Description}
 
@@ -51,190 +42,173 @@
                       >{\arraybackslash}m{7cm}|
                       >{\centering\arraybackslash}m{3cm}|}
     \hline
-    \textbf{Version} & \textbf{Description} & \textbf{Date} \\
-    \hline
-    1.0 & Initial SRS for Snapshot 1. Includes introduction, external interface requirements, legal and ethical considerations, and glossary. & December 5, 2025 \\
-    \hline
-    2.0 & Added functional and non-functional requirements for Snapshot 2. & December 7, 2025 \\
-    \hline
-    3.0 & Expanded system workflows and interface requirements for Snapshot 3. & December 9, 2025 \\
-    \hline
-    4.0 & Final updates for Snapshot 4, including legal updates and completed requirements. & December 11, 2025 \\
-    \hline
+    \textbf{Version} & \textbf{Description} & \textbf{Date} \\ \hline
+    1.0 & Initial SRS including introduction, interface requirements, functional and non-functional requirements, and glossary. & December 5, 2025 \\ \hline
+    2.0 & Added functional and non-functional requirement updates for Snapshot 2. & December 7, 2025 \\ \hline
+    3.0 & Expanded system workflows and clarified interface behaviors for Snapshot 3. & December 9, 2025 \\ \hline
+    4.0 & Final refinements, legal updates, and completed requirement definitions for Snapshot 4. & December 10, 2025 \\ \hline
 \end{longtable}
 
 \newpage
 
-%========================
-% 1. INTRODUCTION
-%========================
 \section{Introduction}
 
 \subsection{Purpose of the Document}
-The purpose of this Software Requirements Specification (SRS) is to describe the functional and non-functional requirements for the Intelligent Document Processing \& Case File Search System. It explains how the software will upload case PDFs, extract metadata, store it in a database, and allow users to search stored case information.
+The purpose of this Software Requirements Specification (SRS) is to define the functional 
+and non-functional requirements for the Intelligent Document Processing \& Case File 
+Search System. The software enables users to upload PDF case files, extract simulated 
+metadata, store it in a PostgreSQL database, and search stored records. This document 
+serves as a guideline for developers, instructors, and future maintainers.
 
 \subsection{Intended Audience}
-This document is intended for:
+This SRS is intended for:
 \begin{itemize}
-    \item Developers implementing frontend, backend, and database features.
-    \item Instructors evaluating project completeness and correctness.
-    \item Students reviewing system functionality expectations.
+    \item Developers implementing frontend, backend, and database components.
+    \item Instructors evaluating the project's correctness and completeness.
+    \item Students reviewing expected system behavior and features.
 \end{itemize}
 
 \subsection{Overview of the Software}
-The software provides:
+The system provides:
 \begin{itemize}
-    \item A document upload interface
-    \item Automated metadata extraction (basic/simulated)
-    \item Structured storage in PostgreSQL
-    \item A search interface to find case information
+    \item A PDF upload interface.
+    \item Automatic extraction of basic (simulated) metadata.
+    \item Structured storage in a PostgreSQL database.
+    \item A search interface to retrieve case information.
 \end{itemize}
 
-The system runs entirely using Docker containers for frontend, backend, and database.
+The entire system runs inside Docker containers for consistency and ease of deployment.
 
 \newpage
 
-%========================
-% 2. EXTERNAL INTERFACE REQUIREMENTS
-%========================
 \section{External Interface Requirements}
 
 \subsection{User Interface}
-The system includes:
+The software includes the following UI components:
 \begin{itemize}
-    \item \textbf{Upload Page:} Allows users to select and upload a PDF.
-    \item \textbf{Search Page:} Allows users to search by case ID, name, or keywords.
-    \item \textbf{Case Detail Page:} Displays metadata extracted from documents.
+    \item \textbf{Upload Page:} Allows users to select and upload PDF files.
+    \item \textbf{Search Page:} Enables case searching by ID, name, or keywords.
+    \item \textbf{Case Detail Page:} Displays extracted metadata for a selected case.
     \item \textbf{Navigation Bar:} Provides access to Home, Upload, and Search.
 \end{itemize}
 
 \subsection{Software Interfaces}
 \begin{itemize}
-    \item \textbf{Frontend → Backend:} REST API using JSON.
-    \item \textbf{Backend → Database:} PostgreSQL using environment variables.
-    \item \textbf{Backend → Filesystem:} Handles uploaded PDF temporary storage.
-    \item \textbf{Docker Network:} All services communicate through internal Docker networking.
+    \item \textbf{Frontend → Backend:} Communicates via REST API using JSON.
+    \item \textbf{Backend → Database:} Interacts with PostgreSQL using environment variables.
+    \item \textbf{Backend → Filesystem:} Temporarily stores uploaded files during processing.
+    \item \textbf{Docker Network:} All services communicate through Docker's internal network.
 \end{itemize}
 
 \subsection{Hardware Interfaces}
-None. The system operates inside virtualized Docker containers.
+No hardware interfaces are required. All components operate inside virtualized Docker containers.
 
 \subsection{Communication Interfaces}
 \begin{itemize}
-    \item HTTP communication through ports exposed by Docker.
-    \item Localhost access for frontend and backend.
+    \item HTTP-based communication through ports exposed by Docker.
+    \item Localhost access for frontend and backend services.
 \end{itemize}
 
 \newpage
 
-%========================
-% 3. SYSTEM REQUIREMENTS
-%========================
+
 \section{System Requirements}
 
-% ---- FUNCTIONAL REQUIREMENTS ----
+
 \subsection{Functional Requirements}
 
 \subsubsection*{FR1: Document Upload}
 \begin{itemize}
-    \item Users shall be able to upload PDF files through the Upload page.
-    \item The system shall validate PDF format before processing.
+    \item Users shall upload PDF files through the Upload page.
+    \item The system shall validate file type before processing.
 \end{itemize}
 
 \subsubsection*{FR2: Metadata Extraction}
 \begin{itemize}
-    \item The system shall extract case ID, officer names, party names, and report date.
-    \item Extraction failures shall return meaningful error messages.
+    \item The system shall extract simulated metadata fields (case ID, parties, dates).
+    \item The system shall return clear error messages if extraction fails.
 \end{itemize}
 
 \subsubsection*{FR3: Database Storage}
 \begin{itemize}
-    \item Extracted metadata shall be stored in PostgreSQL with a unique ID.
-    \item Duplicate file uploads shall be prevented or flagged.
+    \item Extracted metadata shall be stored in PostgreSQL with unique identifiers.
+    \item Duplicate file uploads shall be flagged or prevented.
 \end{itemize}
 
 \subsubsection*{FR4: Search Functionality}
 \begin{itemize}
-    \item Users shall search stored cases by ID, names, or keywords.
-    \item Matching results shall be returned in tabular format.
+    \item Users shall search records by ID, name, or keyword.
+    \item Matching results shall be displayed in a tabular format.
 \end{itemize}
 
 \subsubsection*{FR5: Case Detail View}
 \begin{itemize}
-    \item The system shall display full metadata for any selected record.
+    \item The system shall display complete metadata for any selected record.
 \end{itemize}
 
-% ---- NON-FUNCTIONAL REQUIREMENTS ----
 \subsection{Non-Functional Requirements}
 
 \subsubsection*{NFR1: Performance}
 \begin{itemize}
-    \item Metadata extraction shall complete within 5 seconds per document.
+    \item Metadata extraction shall complete within 5 seconds per file.
     \item Search queries shall return results within 2 seconds.
 \end{itemize}
 
 \subsubsection*{NFR2: Usability}
 \begin{itemize}
-    \item The system shall require minimal user training.
-    \item Navigation shall remain simple for non-technical staff.
+    \item The system shall be easy to use for non-technical users.
+    \item Navigation shall be simple and intuitive.
 \end{itemize}
 
 \subsubsection*{NFR3: Reliability}
 \begin{itemize}
-    \item The system shall run even if one Docker container temporarily restarts.
-    \item All services must start consistently using \texttt{docker-compose up}.
+    \item The system shall recover automatically if any Docker container restarts.
+    \item All containers must start reliably with \texttt{docker-compose up}.
 \end{itemize}
 
 \subsubsection*{NFR4: Security}
 \begin{itemize}
-    \item Uploaded case documents must not be accessible outside the system.
-    \item Data must not be sent to any third-party APIs.
+    \item Uploaded documents must not be accessible outside the system.
+    \item No data shall be sent to third-party APIs.
 \end{itemize}
 
 \subsubsection*{NFR5: Compatibility}
 \begin{itemize}
-    \item System shall run on Windows, MacOS, and Linux using Docker Desktop.
-    \item Frontend must support Chrome, Safari, and Edge.
+    \item The system shall run on Windows, macOS, and Linux using Docker Desktop.
+    \item The frontend shall support Chrome, Safari, and Microsoft Edge.
 \end{itemize}
 
 \newpage
 
-%========================
-% 4. LEGAL AND ETHICAL CONSIDERATIONS
-%========================
 \section{Legal and Ethical Considerations}
 
 \subsection{Data Storage and Privacy}
 \begin{itemize}
-    \item Case metadata may include sensitive information such as officer names and report details.
-    \item All data is stored locally and not sent to cloud services.
-    \item Uploaded PDFs are never shared outside the testing environment.
+    \item Metadata may include sensitive information requiring careful handling.
+    \item All data is stored locally within Docker containers.
+    \item Documents are never sent to external services.
 \end{itemize}
 
 \subsection{Ethical Use of Document Processing}
 \begin{itemize}
-    \item Incorrect metadata extraction must not misrepresent case details.
-    \item Users must be informed when extraction is incomplete.
+    \item Metadata extraction must not misrepresent document contents.
+    \item Users shall be informed when extraction is incomplete or inaccurate.
 \end{itemize}
 
 \subsection{Compliance Considerations}
 \begin{itemize}
-    \item Project uses simulated test data only—no real case files.
-    \item System must follow FERPA and academic data policies.
+    \item Only simulated test data is used—no real case files.
+    \item The system shall follow relevant academic data policies.
 \end{itemize}
 
 \newpage
 
-%========================
-% 5. GLOSSARY
-%========================
 \section{Glossary}
 
 \begin{longtable}{|>{\centering\arraybackslash}m{3cm}|
                       >{\arraybackslash}m{9cm}|}
     \hline
-    \textbf{Acronym} & \textbf{Definition} \\
-    \hline
+    \textbf{Acronym} & \textbf{Definition} \\ \hline
     UI & User Interface \\ \hline
     API & Application Programming Interface \\ \hline
     DB & Database \\ \hline
@@ -243,4 +217,3 @@ None. The system operates inside virtualized Docker containers.
 \end{longtable}
 
 \end{document}
-

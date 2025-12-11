@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.20)  5 DEC 2025 22:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.20)  10 DEC 2025 22:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -327,31 +327,32 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.42 \newpage
-              [1] [2] [3] [4] [5] [6] (group{4}_SRS.aux)
+l.36 \newpage
+              [1] [2] [3] [4] [5] [6] [7] [8] (group{4}_SRS.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
 Package rerunfilecheck Info: File `group{4}_SRS.out' has not changed.
-(rerunfilecheck)             Checksum: 9428CF8675924A9B27AB068B9AFC4FEF;1916.
+(rerunfilecheck)             Checksum: 4EC85142E4F67D5B74156597F4FF9046;3006.
  ) 
 Here is how much of TeX's memory you used:
- 8876 strings out of 467871
- 138848 string characters out of 5418375
- 555651 words of memory out of 5000000
- 37662 multiletter control sequences out of 15000+600000
- 633265 words of font info for 58 fonts, out of 8000000 for 9000
+ 8904 strings out of 467871
+ 139183 string characters out of 5418375
+ 560654 words of memory out of 5000000
+ 37671 multiletter control sequences out of 15000+600000
+ 633428 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,5n,79p,315b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\samul\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
-1200.pk><C:/Users/samul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb><C:/Users/samul/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/amsfonts/cm/cmr12.pfb><C:/Users/samul/AppData/Local/Programs/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmti12.pfb>
-Output written on group{4}_SRS.pdf (7 pages, 66689 bytes).
+ 75i,5n,79p,294b,513s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\samul\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcbx
+1200.pk> <C:\Users\samul\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi60
+0\tcrm1200.pk><C:/Users/samul/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmbx12.pfb><C:/Users/samul/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr12.pfb><C:/Users/samul/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on group{4}_SRS.pdf (9 pages, 74167 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 22 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 182 PDF objects out of 1000 (max. 8388607)
+ 40 named destinations out of 1000 (max. 500000)
+ 145 words of extra memory for PDF output out of 10000 (max. 10000000)
 
