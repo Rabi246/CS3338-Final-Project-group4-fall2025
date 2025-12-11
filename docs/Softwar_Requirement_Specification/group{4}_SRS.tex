@@ -31,7 +31,7 @@
     \vspace{0.5cm}
     {\large Version: \textbf{1.0}\par}
     \vfill
-    {\large Date: \textbf{December 5, 2025}\par}
+    {\large Date: \textbf{December 2025}\par}
     \vspace{2cm}
 \end{titlepage}
 
@@ -55,6 +55,12 @@
     \hline
     1.0 & Initial SRS for Snapshot 1. Includes introduction, external interface requirements, legal and ethical considerations, and glossary. & December 5, 2025 \\
     \hline
+    2.0 & Added functional and non-functional requirements for Snapshot 2. & December 7, 2025 \\
+    \hline
+    3.0 & Expanded system workflows and interface requirements for Snapshot 3. & December 9, 2025 \\
+    \hline
+    4.0 & Final updates for Snapshot 4, including legal updates and completed requirements. & December 11, 2025 \\
+    \hline
 \end{longtable}
 
 \newpage
@@ -65,21 +71,26 @@
 \section{Introduction}
 
 \subsection{Purpose of the Document}
-The purpose of this Software Requirements Specification (SRS) is to describe all functional and non-functional requirements for the \textit{Lab Activity 14} system. It establishes what the software will do, how users will interact with it, and the constraints it must follow.
-
-\bigskip
-
+The purpose of this Software Requirements Specification (SRS) is to describe the functional and non-functional requirements for the Intelligent Document Processing \& Case File Search System. It explains how the software will upload case PDFs, extract metadata, store it in a database, and allow users to search stored case information.
 
 \subsection{Intended Audience}
 This document is intended for:
 \begin{itemize}
-    \item Stakeholders and students reviewing system expectations.
-    \item Developers implementing system features.
-    \item Instructors evaluating project completeness.
+    \item Developers implementing frontend, backend, and database features.
+    \item Instructors evaluating project completeness and correctness.
+    \item Students reviewing system functionality expectations.
 \end{itemize}
 
 \subsection{Overview of the Software}
-The \textbf{Lab Activity 14} software represents an academic exercise focused on generating professional documentation using LaTeX. It outlines requirements and design elements of a simple structured system used in software engineering courses.
+The software provides:
+\begin{itemize}
+    \item A document upload interface
+    \item Automated metadata extraction (basic/simulated)
+    \item Structured storage in PostgreSQL
+    \item A search interface to find case information
+\end{itemize}
+
+The system runs entirely using Docker containers for frontend, backend, and database.
 
 \newpage
 
@@ -89,44 +100,133 @@ The \textbf{Lab Activity 14} software represents an academic exercise focused on
 \section{External Interface Requirements}
 
 \subsection{User Interface}
+The system includes:
 \begin{itemize}
-    \item The system provides a simple, easy-to-navigate interface.
-    \item Users can select actions and navigate through menus.
-    \item Clear prompts and forms enable user input.
+    \item \textbf{Upload Page:} Allows users to select and upload a PDF.
+    \item \textbf{Search Page:} Allows users to search by case ID, name, or keywords.
+    \item \textbf{Case Detail Page:} Displays metadata extracted from documents.
+    \item \textbf{Navigation Bar:} Provides access to Home, Upload, and Search.
 \end{itemize}
 
 \subsection{Software Interfaces}
 \begin{itemize}
-    \item The system may connect to a database for storing data.
-    \item APIs can be used for authentication or external services.
-    \item Data is exchanged in common formats such as JSON or form data.
+    \item \textbf{Frontend → Backend:} REST API using JSON.
+    \item \textbf{Backend → Database:} PostgreSQL using environment variables.
+    \item \textbf{Backend → Filesystem:} Handles uploaded PDF temporary storage.
+    \item \textbf{Docker Network:} All services communicate through internal Docker networking.
+\end{itemize}
+
+\subsection{Hardware Interfaces}
+None. The system operates inside virtualized Docker containers.
+
+\subsection{Communication Interfaces}
+\begin{itemize}
+    \item HTTP communication through ports exposed by Docker.
+    \item Localhost access for frontend and backend.
 \end{itemize}
 
 \newpage
 
 %========================
-% 3. LEGAL AND ETHICAL CONSIDERATIONS
+% 3. SYSTEM REQUIREMENTS
+%========================
+\section{System Requirements}
+
+% ---- FUNCTIONAL REQUIREMENTS ----
+\subsection{Functional Requirements}
+
+\subsubsection*{FR1: Document Upload}
+\begin{itemize}
+    \item Users shall be able to upload PDF files through the Upload page.
+    \item The system shall validate PDF format before processing.
+\end{itemize}
+
+\subsubsection*{FR2: Metadata Extraction}
+\begin{itemize}
+    \item The system shall extract case ID, officer names, party names, and report date.
+    \item Extraction failures shall return meaningful error messages.
+\end{itemize}
+
+\subsubsection*{FR3: Database Storage}
+\begin{itemize}
+    \item Extracted metadata shall be stored in PostgreSQL with a unique ID.
+    \item Duplicate file uploads shall be prevented or flagged.
+\end{itemize}
+
+\subsubsection*{FR4: Search Functionality}
+\begin{itemize}
+    \item Users shall search stored cases by ID, names, or keywords.
+    \item Matching results shall be returned in tabular format.
+\end{itemize}
+
+\subsubsection*{FR5: Case Detail View}
+\begin{itemize}
+    \item The system shall display full metadata for any selected record.
+\end{itemize}
+
+% ---- NON-FUNCTIONAL REQUIREMENTS ----
+\subsection{Non-Functional Requirements}
+
+\subsubsection*{NFR1: Performance}
+\begin{itemize}
+    \item Metadata extraction shall complete within 5 seconds per document.
+    \item Search queries shall return results within 2 seconds.
+\end{itemize}
+
+\subsubsection*{NFR2: Usability}
+\begin{itemize}
+    \item The system shall require minimal user training.
+    \item Navigation shall remain simple for non-technical staff.
+\end{itemize}
+
+\subsubsection*{NFR3: Reliability}
+\begin{itemize}
+    \item The system shall run even if one Docker container temporarily restarts.
+    \item All services must start consistently using \texttt{docker-compose up}.
+\end{itemize}
+
+\subsubsection*{NFR4: Security}
+\begin{itemize}
+    \item Uploaded case documents must not be accessible outside the system.
+    \item Data must not be sent to any third-party APIs.
+\end{itemize}
+
+\subsubsection*{NFR5: Compatibility}
+\begin{itemize}
+    \item System shall run on Windows, MacOS, and Linux using Docker Desktop.
+    \item Frontend must support Chrome, Safari, and Edge.
+\end{itemize}
+
+\newpage
+
+%========================
+% 4. LEGAL AND ETHICAL CONSIDERATIONS
 %========================
 \section{Legal and Ethical Considerations}
 
 \subsection{Data Storage and Privacy}
 \begin{itemize}
-    \item Minimal user data is collected.
-    \item Sensitive information is protected using standard security practices.
-    \item User access is restricted where necessary.
+    \item Case metadata may include sensitive information such as officer names and report details.
+    \item All data is stored locally and not sent to cloud services.
+    \item Uploaded PDFs are never shared outside the testing environment.
 \end{itemize}
 
-\subsection{Legal and Ethical Issues}
+\subsection{Ethical Use of Document Processing}
 \begin{itemize}
-    \item Users must be informed about what information is used or stored.
-    \item Systems must comply with general data ethics and privacy expectations.
-    \item Unauthorized data use or sharing is prohibited.
+    \item Incorrect metadata extraction must not misrepresent case details.
+    \item Users must be informed when extraction is incomplete.
+\end{itemize}
+
+\subsection{Compliance Considerations}
+\begin{itemize}
+    \item Project uses simulated test data only—no real case files.
+    \item System must follow FERPA and academic data policies.
 \end{itemize}
 
 \newpage
 
 %========================
-% 4. GLOSSARY
+% 5. GLOSSARY
 %========================
 \section{Glossary}
 
@@ -135,16 +235,12 @@ The \textbf{Lab Activity 14} software represents an academic exercise focused on
     \hline
     \textbf{Acronym} & \textbf{Definition} \\
     \hline
-    UI & User Interface \\
-    \hline
-    API & Application Programming Interface \\
-    \hline
-    DB & Database \\
-    \hline
-    SRS & Software Requirements Specification \\
-    \hline
-    SDD & Software Design Document \\
-    \hline
+    UI & User Interface \\ \hline
+    API & Application Programming Interface \\ \hline
+    DB & Database \\ \hline
+    SRS & Software Requirements Specification \\ \hline
+    SDD & Software Design Document \\ \hline
 \end{longtable}
 
 \end{document}
+
