@@ -65,8 +65,8 @@ CS3338-Final-Project-group4-fall2025/
 docker-compose up --build
 
 ### **Access the system**
-- Frontend: **http://localhost:3000**
-- Backend API: **http://localhost:5000**
+- Frontend: **http://localhost:3000**  (Example)
+- Backend API: **http://localhost:5000**  (Example)
 
 ### **Stop the system**
 Ctrl + C  
