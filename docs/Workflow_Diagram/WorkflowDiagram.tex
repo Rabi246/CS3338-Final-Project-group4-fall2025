@@ -1,6 +1,6 @@
 \documentclass[tikz,border=10pt]{standalone}
 \usepackage{tikz}
-\usetikzlibrary{shadows, arrows.meta, positioning}
+\usetikzlibrary{shadows, arrows.meta, positioning, fit}
 
 \begin{document}
 
@@ -14,45 +14,60 @@
         very thick,
         minimum width=3.5cm,
         minimum height=1.2cm,
-        text centered
+        text centered,
+        drop shadow
+    },
+    actor/.style={
+        rectangle,
+        rounded corners,
+        draw=green!60,
+        fill=green!10,
+        very thick,
+        minimum width=3.5cm,
+        minimum height=1.2cm,
+        text centered,
+        drop shadow
     },
     arrow/.style={
         -{Stealth[length=3mm]},
-        thick
+        very thick,
+        draw=blue!70
     }
 ]
 
 % Nodes
-\node[box] (user) {User};
+\node[actor] (user) {User};
 \node[box, right=of user] (frontend) {Frontend \\ React/Vite UI};
 \node[box, right=of frontend] (backend) {Backend API \\ Node/Express};
 \node[box, right=of backend] (database) {PostgreSQL DB};
 
-\node[box, below=2cm of backend] (extraction) {Metadata Extraction};
 \node[box, below=2cm of frontend] (upload) {PDF Upload};
+\node[box, below=2cm of backend] (extraction) {Metadata Extraction};
 
 % Docker box
 \node[
     draw=black!60,
     dashed,
     thick,
-    fit={(frontend) (backend) (database) (extraction)},
-    label={[yshift=1.3cm]\textbf{Docker Environment}}
+    fit={(frontend) (backend) (database) (upload) (extraction)},
+    label={[yshift=1cm]\textbf{Docker Environment}}
 ] (dockerbox) {};
 
-% Arrows (main flow)
-\draw[arrow] (user) -- node[above]{Interacts With} (frontend);
-\draw[arrow] (frontend) -- node[above]{Sends Request} (backend);
-\draw[arrow] (backend) -- node[above]{Queries} (database);
-\draw[arrow] (database) -- node[above]{Returns Data} (backend);
-\draw[arrow] (backend) -- node[above]{Responds To} (frontend);
-\draw[arrow] (frontend) -- node[above]{Displays Results} (user);
+% Arrows
 
-% Upload / Extraction flow
-\draw[arrow] (user.south) |- (upload.west);
-\draw[arrow] (upload.east) -- (backend.south);
-\draw[arrow] (backend.south) -- (extraction.north);
-\draw[arrow] (extraction.west) -- ++(-1.2,0) |- (database.south);
+\draw[arrow] (user) -- node[midway, yshift=8pt]{Use} (frontend);
+\draw[arrow] (frontend) -- node[midway, yshift=8pt]{Request} (backend);
+\draw[arrow] (backend) -- node[midway, yshift=8pt]{Query} (database);
+\draw[arrow] (database) -- node[midway, yshift=8pt]{Data} (backend);
+\draw[arrow] (backend) -- node[midway, yshift=8pt]{Response} (frontend);
+\draw[arrow] (frontend) -- node[midway, yshift=8pt]{Results} (user);
+
+% Upload / extraction flow
+\draw[arrow] (user.south) |- node[midway, xshift=-10pt]{Upload} (upload);
+\draw[arrow] (upload.east) -- node[midway, yshift=8pt]{Store} (backend.south);
+\draw[arrow] (backend.south) -- node[midway, xshift=10pt]{Process} (extraction.north);
+\draw[arrow] (extraction.west) -- ++(-1.2,0) |- node[midway, xshift=-10pt]{Save} (database.south);
+
 
 \end{tikzpicture}
 
